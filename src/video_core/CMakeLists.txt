@@ -208,14 +208,14 @@ add_library(video_core STATIC
     renderer_vulkan/vk_frame_dump.h
     renderer_vulkan/vk_graphics_pipeline.cpp
     renderer_vulkan/vk_graphics_pipeline.h
+    renderer_vulkan/vk_pipeline_library.cpp
+    renderer_vulkan/vk_pipeline_library.h
     renderer_vulkan/vk_multi_range_buffer.cpp
     renderer_vulkan/vk_multi_range_buffer.h
     renderer_vulkan/vk_master_semaphore.cpp
     renderer_vulkan/vk_master_semaphore.h
     renderer_vulkan/vk_pipeline_cache.cpp
     renderer_vulkan/vk_pipeline_cache.h
-    renderer_vulkan/vk_pipeline_cache_records.cpp
-    renderer_vulkan/vk_pipeline_cache_records.h
     renderer_vulkan/vk_present_manager.cpp
     renderer_vulkan/vk_present_manager.h
     renderer_vulkan/vk_query_cache.cpp
@@ -278,8 +278,11 @@ add_library(video_core STATIC
     shader_warm/shader_archives.h
     shader_warm/shader_warm_builder.cpp
     shader_warm/shader_warm_builder.h
+    shader_warm/warm_defaults.cpp
     shader_warm/warm_records.cpp
     shader_warm/warm_records.h
+    spirv_inline_control.cpp
+    spirv_inline_control.h
     smaa_area_tex.h
     smaa_search_tex.h
     surface.cpp
@@ -295,7 +298,6 @@ add_library(video_core STATIC
     texture_cache/format_lookup_table.h
     texture_cache/image_base.cpp
     texture_cache/image_base.h
-    texture_cache/host_mip_limits.h
     texture_cache/image_info.cpp
     texture_cache/image_info.h
     texture_cache/image_view_base.cpp
@@ -304,7 +306,6 @@ add_library(video_core STATIC
     texture_cache/image_view_info.h
     texture_cache/render_targets.h
     texture_cache/samples_helper.h
-    texture_cache/stale_pages.h
     texture_cache/texture_cache.cpp
     texture_cache/texture_cache.h
     texture_cache/texture_cache_base.h
@@ -471,7 +472,7 @@ if(WIN32)
     target_link_libraries(video_core PRIVATE advapi32)
 endif()
 
-# Shader precache builder: game archives use zstd (also with dictionaries) and zlib.
+# Shader warm-up builder: game archives use zstd (also with dictionaries) and zlib.
 target_link_libraries(video_core PRIVATE zstd::zstd ZLIB::ZLIB)
 target_link_libraries(video_core PUBLIC shader_recompiler stb bc_decoder gpu_logging)
 if (ENABLE_OPENGL)

@@ -469,6 +469,8 @@ void GameList::SetReportableProgramId(u64 program_id) {
     reportable_program_id = program_id;
 }
 
+/// Fills the context menu of a game entry (folders, cache, mods, shader warm-up, dumps,
+/// shortcuts and the rest) and connects each action to its request signal.
 void GameList::AddGamePopup(QMenu& context_menu, u64 program_id, const std::string& path) {
     // TODO(crueter): Refactor this and make it less bad
     QAction* favorite = context_menu.addAction(tr("Favorite"));
@@ -483,10 +485,10 @@ void GameList::AddGamePopup(QMenu& context_menu, u64 program_id, const std::stri
         context_menu.addAction(tr("Open Transferable Pipeline Cache"));
     const bool has_shader_warm = ShaderWarmFilesExist(program_id);
     QAction* prepare_shaders = context_menu.addAction(
-        has_shader_warm ? tr("Rebuild Shader Precache") : tr("Build Shader Precache"));
+        has_shader_warm ? tr("Rebuild shader warm-up") : tr("Prepare shaders (warm-up)"));
     QAction* delete_shader_warm = nullptr;
     if (has_shader_warm) {
-        delete_shader_warm = context_menu.addAction(tr("Delete Shader Precache"));
+        delete_shader_warm = context_menu.addAction(tr("Delete shader warm-up"));
     }
     QAction* ryujinx = context_menu.addAction(tr("Link to Ryujinx"));
     context_menu.addSeparator();
